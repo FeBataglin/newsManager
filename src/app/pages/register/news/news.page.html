@@ -1,0 +1,122 @@
+<div class="thf-wrapper">
+    <thf-menu t-collapsed t-filter [t-menus]="menus" [t-service]="sampleThfMenuHumanResourcesService">
+
+        <div *t-menu-header-template class="thf-p-2 thf-font-title sample-menu-header-text-color">
+            <p> Bem-vindo, </p>
+            <p>
+                <b> Fernando </b>
+            </p>
+        </div>
+    </thf-menu>
+
+    <thf-toolbar t-title="ComunicaSENAI"></thf-toolbar>
+
+    <thf-page-default t-title="Manutenção das novidades - Curso Técnico">
+        <thf-divider class="divider-title"></thf-divider>
+        <thf-container class="container-register thf-md-4">
+            <form class="thf-page-news-form" [formGroup]="newsForm">
+                <thf-divider t-label="Informe a URL do vídeo ou selecione uma imagem de capa"></thf-divider>
+                <thf-input 
+                    [(ngModel)]="news.video" 
+                    type="text" 
+                    formControlName="video" 
+                    t-label="URL do vídeo"
+                    t-placeholder="Informe a URL do vídeo">
+                </thf-input>
+                <span class=thf-field-title>ou</span>
+                <p></p>
+                <div class="upload-btn-wrapper">
+                    <button class="btn">Selecionar imagem de capa </button>
+                    <input [(ngModel)]="news.image" formControlName="image" (change)="detectedFiles($event)" type="file" name="myfile" />
+                </div>
+                <thf-divider t-label="Informações do card"></thf-divider>
+                <thf-input 
+                    type="text" 
+                    [(ngModel)]="news.title" 
+                    formControlName="title" 
+                    t-label="Título da novidade"
+                    t-placeholder="Informe o título">
+                </thf-input>
+                <thf-textarea 
+                    type="text" 
+                    formControlName="resume" 
+                    [(ngModel)]="news.resume" 
+                    t-label="Resumo da novidade"
+                    t-placeholder="Informe um resumo da novidade">
+                </thf-textarea>
+                <thf-input 
+                    type="text" 
+                    formControlName="document" 
+                    [(ngModel)]="news.document"
+                    t-label="Link de acesso ao TDN" t-placeholder="Informe o link do documento">
+                </thf-input>
+                <thf-select 
+                    name="string" 
+                    t-label="Segmento" 
+                    formControlName="segment" 
+                    [(ngModel)]="news.segment"
+                    [t-options]="[{ value: '1', label: 'Ensino Médio' }, 
+                                { value: '2', label: 'Cursos Técnicos' },
+                                { value: '3', label: 'Cursos Superiores' },
+                                { value: '4', label: 'Bolsas' },
+                                { value: '5', label: 'Eventos' },
+                                { value: '6', label: 'Mundo SENAI' }]" 
+                    t-placeholder="Informe o segmento pertencente a novidade" 
+                    t-readonly="boolean"
+                    t-required="string | boolean">
+                </thf-select>
+                <thf-button 
+                    [t-disabled]="!newsForm.valid" 
+                    class="registerBtn thf-xl-12 thf-lg-12 thf-md-12 thf-sm-12"
+                    t-label="Salvar" 
+                    t-type="submit" 
+                    (t-click)="registerNews(news)">
+                </thf-button>
+            </form>
+        </thf-container>
+
+        <thf-container class="thf-md-8">
+            <thf-input
+                (t-blur)="EventEmitter"
+                (t-change)="EventEmitter"
+                (t-change-model)="EventEmitter"
+                t-clean="true"
+                (t-enter)="EventEmitter"
+                t-focus="boolean"
+                t-icon="thf-icon thf-icon-search"
+                t-label="Pesquisar"
+                name="string"
+                t-optional="boolean"
+                t-pattern="string"
+                t-placeholder="Pesquisar novidades"
+                t-readonly="boolean"
+                t-required="boolean" >
+            </thf-input>
+            <div *ngFor="let new of news | async">
+                <thf-widget
+                    class="thf-md-4 thf-mb-4" 
+                    t-height="600" 
+                    t-primary-label="Editar"
+                    (t-primary-action)="editNews(new.key)"
+                    t-secondary-label="Excluir"
+                    (t-secondary-action)="deleteNews(new.key)">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        [src]="new.video | safe" 
+                        frameborder="0" 
+                        allowFullScreen
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen">
+                    </iframe>
+                    <img src="{{newsImage}}"/>
+                    <h2> {{new.title}} </h2>
+                    <p></p>
+                    <div> {{new.resume}} </div>
+                    <thf-divider></thf-divider>
+
+                    <a class="documentLink" href="{{new.document}}">Conferir documentação</a>
+                </thf-widget>
+            </div>
+        </thf-container>
+    </thf-page-default>
+</div>

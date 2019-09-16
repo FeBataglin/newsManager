@@ -1,0 +1,51 @@
+.loginBtn {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.registerBtn {
+    margin-bottom: 10px;
+}
+
+.title {
+    margin-top: 50px;
+}
+
+.subtitle {
+    margin-bottom: 10px;
+}
+
+.footer {
+    text-align: center;
+    font-size: 10px;
+}
+
+ion-item {
+    font-size: 14px;
+    font-family: 'NunitoSans';
+    text-align: initial;
+}
+
+.container {
+    width: 100vw;         
+    height: 100vh;                 
+    display: flex;         
+    flex-direction: row;        
+    justify-content: center;       
+     align-items: center;
+}
+
+.box {
+ width: 500px;
+ height: 500px;
+}
+
+H1 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: NunitoSans-ExtraLight,sans-serif;
+}
+
+.thf-icon {
+    float: right;
+}
